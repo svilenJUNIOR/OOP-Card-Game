@@ -28,7 +28,7 @@ for (int i = 1; i <= 10; i++)
     else if (i >= 6 && i <= 10) playerHand.Add(new Card(card, cardSuit, cardColor));
 }
 
-
+Console.WriteLine("Computer hand:");
 foreach (var card in computerhand)
 {
     if (card.Color == "red")
@@ -42,8 +42,9 @@ foreach (var card in computerhand)
         Console.WriteLine($"{card.CardType}{card.Suit}");
     }
 }
+
 Console.ResetColor();
-Console.WriteLine(new String('-', 100));
+Console.WriteLine("Your hand:");
 
 foreach (var card in playerHand)
 {
@@ -60,3 +61,12 @@ foreach (var card in playerHand)
     }
 }
 Console.ResetColor();
+
+Console.WriteLine("\nChoose game type:");
+
+for (int i = 0; i < playerGameType.Length; i++)
+{
+    Console.WriteLine($"{i}: {playerGameType[i]}");
+}
+Console.Write("Enter the number of the desired type: ");
+int choice = int.Parse(Console.ReadLine());
