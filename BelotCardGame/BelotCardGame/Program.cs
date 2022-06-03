@@ -30,9 +30,26 @@ for (int i = 1; i <= 10; i++)
 
 
 foreach (var card in computerhand)
-    Console.WriteLine($"{card.CardType}{card.Suit} - {card.Color}");
+{
+    if (card.Color == "red")
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"{card.CardType}{card.Suit}");
+    }
+    Console.ForegroundColor = ConsoleColor.Black;
+    Console.WriteLine($"{card.CardType}{card.Suit}");
+}
 
 Console.WriteLine(new String('-', 100));
 
 foreach (var card in playerHand)
-    Console.WriteLine($"{card.CardType}{card.Suit} - {card.Color}");
+{
+    if (card.Color == "red")
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"{card.CardType}{card.Suit}");
+    }
+    Console.ForegroundColor = ConsoleColor.Black;
+    Console.WriteLine($"{card.CardType}{card.Suit}");
+}
+
