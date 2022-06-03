@@ -180,6 +180,14 @@ namespace BelotCardGame.Models
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
             {
+                string color = string.Empty;
+
+                if (gameType == "clubs" || gameType == "spades")
+                    color = "black";
+
+                else if (gameType == "diamonds" || gameType == "hearts")
+                    color = "red";
+
                 this.scoreBoard.FillColor();
                 ScoreBoard = this.scoreBoard.ColorScore;
 
@@ -206,17 +214,31 @@ namespace BelotCardGame.Models
                     }
                 }
 
+                int playerBonus = scoreBoard.CalculateBonus(playersHand, color);
+                int computerBonus = scoreBoard.CalculateBonus(computersHand, color);
+
+                playerScore += playerBonus;
+                computerScore += computerBonus;
+
                 if (playerScore > computerScore)
                 {
+                    Console.WriteLine($"Your bonus: {playerBonus}");
+                    Console.WriteLine($"Computer bonus: {computerBonus}");
+
                     Console.WriteLine($"Your score: {playerScore}");
                     Console.WriteLine($"Computer score: {computerScore}");
+
                     Console.WriteLine("YOU WIN!!!");
                     return;
                 }
                 else
                 {
+                    Console.WriteLine($"Your bonus: {playerBonus}");
+                    Console.WriteLine($"Computer bonus: {computerBonus}");
+
                     Console.WriteLine($"Your score: {playerScore}");
                     Console.WriteLine($"Computer score: {computerScore}");
+
                     Console.WriteLine("YOU LOOSE!!!");
                     return;
                 }

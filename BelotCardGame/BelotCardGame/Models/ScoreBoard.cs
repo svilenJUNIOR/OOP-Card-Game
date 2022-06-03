@@ -1,4 +1,5 @@
 ﻿using BelotCardGame.Contracts;
+using System.Text;
 
 namespace BelotCardGame.Models
 {
@@ -57,12 +58,17 @@ namespace BelotCardGame.Models
             this.ColorScore.Add("A", 11);
         }
 
-        public int CalculateBonus(List<Card> Hand, string? isGameColored)
+        public int CalculateBonus(List<Card> Hand, string? color)
         {
-            if (isGameColored != null)
+            if (color != null)
             {
+                var coloredHand = new List<string>();
 
+                foreach (var card in Hand)
+                    if (card.Color == color)
+                        coloredHand.Add(card.CardType);
             }
+
             var hand = new List<string>();
             foreach (var card in Hand) hand.Add(card.CardType);
 
