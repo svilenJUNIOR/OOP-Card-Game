@@ -9,10 +9,12 @@ namespace BelotCardGame.Models
         private readonly string[] colors = { "black", "red" };
         private readonly IComputer computer;
         private readonly IPlayer player;
-        public Dealer(IComputer computer, IPlayer player)
+        private readonly IScoreBoard scoreBoard;
+        public Dealer(IComputer computer, IPlayer player, IScoreBoard scoreBoard)
         {
             this.computer = computer;
             this.player = player;
+            this.scoreBoard = scoreBoard;
         }
 
         public void DrawCards()
@@ -61,6 +63,12 @@ namespace BelotCardGame.Models
         }
         public void ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
         {
+            if (computerGameType == "give up" && playerGameType == "give up")
+            {
+                Console.WriteLine("Game is draw");
+                return;
+            }
+
             int playerGameIndex = Array.IndexOf(gameTypes,playerGameType);
             int computerGameIndex = Array.IndexOf(gameTypes,computerGameType);
 

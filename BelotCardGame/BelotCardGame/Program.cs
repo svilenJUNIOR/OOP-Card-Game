@@ -7,6 +7,7 @@ IServiceProvider serviceProvider = new ServiceCollection()
     .AddScoped<IComputer, Computer>()
     .AddScoped<IDealer, Dealer>()
     .AddScoped<IEngine, Engine>()
+    .AddScoped<IScoreBoard, ScoreBoard>()
     .BuildServiceProvider();
 
 IEngine engine = serviceProvider.GetService<IEngine>();
