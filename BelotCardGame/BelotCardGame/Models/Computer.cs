@@ -15,7 +15,7 @@ namespace BelotCardGame.Models
 
             Console.WriteLine("Computer chooses game type!");
 
-            int gameNumber = random.Next(0, gameTypes.Count() + 1);
+            int gameNumber = random.Next(0, gameTypes.Count());
             string game = gameTypes[gameNumber];
 
             Console.WriteLine($"Computer choose: {game}");
