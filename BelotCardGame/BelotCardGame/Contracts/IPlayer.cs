@@ -7,5 +7,6 @@ namespace BelotCardGame.Contracts
         public void FillHand(Card card);
         public void ShowHand();
         public string ChooseGameType(string[] gameTypes);
+        public List<Card> ReturnHand();
     }
 }

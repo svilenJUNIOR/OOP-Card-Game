@@ -61,25 +61,84 @@ namespace BelotCardGame.Models
                 else if (i >= 4 && i <= 6) player.FillHand(new Card(card, cardSuit, cardColor));
             }
         }
-        public void ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
+        public string ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
         {
             if (computerGameType == "give up" && playerGameType == "give up")
             {
                 Console.WriteLine("Game is draw");
-                return;
+                return null;
             }
 
-            int playerGameIndex = Array.IndexOf(gameTypes,playerGameType);
-            int computerGameIndex = Array.IndexOf(gameTypes,computerGameType);
+            int playerGameIndex = Array.IndexOf(gameTypes, playerGameType);
+            int computerGameIndex = Array.IndexOf(gameTypes, computerGameType);
 
             Console.WriteLine("\nDealer is comparing game types!");
             Thread.Sleep(1000);
 
             if (playerGameIndex > computerGameIndex)
+            {
                 Console.WriteLine($"Game type is: {playerGameType}");
+                return playerGameType;
+            }
 
-            else
-                Console.WriteLine($"Game types is: {computerGameType}");
+            Console.WriteLine($"Game types is: {computerGameType}");
+            return computerGameType;
+        }
+        public void CollectPoints(string gameType, List<Card> playersHand, List<Card> computersHand)
+        {
+            Dictionary<string, int> ScoreBoard = null;
+
+            int playerScore = 0;
+            int computerScore = 0;
+
+            if (gameType == "no trumps")
+            {
+                this.scoreBoard.FillNoTrump();
+                ScoreBoard = this.scoreBoard.NoTrumpsScore;
+
+                foreach (var score in ScoreBoard)
+                {
+                    for (int i = 0; i < playersHand.Count(); i++)
+                    {
+                        if (playersHand[i].CardType == score.Key)
+                            playerScore += score.Value;
+                    }
+
+                    for (int i = 0; i < playersHand.Count(); i++)
+                    {
+                        if (computersHand[i].CardType == score.Key)
+                            computerScore += score.Value;
+                    }
+                }
+
+                if (playerScore > computerScore)
+                {
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+                    Console.WriteLine("YOU WIN!!!");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+                    Console.WriteLine("YOU LOOSE!!!");
+                    return;
+                }
+
+            }
+
+            else if (gameType == "all trumps")
+            {
+                ScoreBoard = this.scoreBoard.AllTrumpsScore;
+
+            }
+
+            else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
+            {
+                ScoreBoard = this.scoreBoard.ColorScore;
+
+            }
         }
     }
 }
