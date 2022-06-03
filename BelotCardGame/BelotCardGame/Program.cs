@@ -10,7 +10,7 @@ var suits = new string[] { "\u2663", "\u2666", "\u2665", "\u2660", };
 var colors = new string[] { "black", "red" };
 
 var playerGameType = new string[] { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
-var computerGameType = new List<string>();
+var computerGameType = new List<string>() { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
 
 
 for (int i = 1; i <= 10; i++)
@@ -68,5 +68,15 @@ for (int i = 0; i < playerGameType.Length; i++)
 {
     Console.WriteLine($"{i}: {playerGameType[i]}");
 }
+
 Console.Write("Enter the number of the desired type: ");
 int choice = int.Parse(Console.ReadLine());
+
+computerGameType.RemoveAt(choice);
+
+Console.WriteLine("Computer chooses game type!");
+
+int gameNumber = random.Next(0, computerGameType.Count() + 1);
+string game = computerGameType[gameNumber];
+
+Console.WriteLine($"Computer choose: {game}");
