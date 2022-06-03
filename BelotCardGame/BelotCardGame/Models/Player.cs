@@ -1,8 +1,12 @@
-﻿namespace BelotCardGame.Models
+﻿using BelotCardGame.Contracts;
+
+namespace BelotCardGame.Models
 {
-    public class Player
+    public class Player : IPlayer
     {
-        public List<Card> Hand { get; set; } = new List<Card>();
+        private List<Card> Hand { get; set; } = new List<Card>();
+
+        public void FillHand(Card card) => Hand.Add(card);
         public void ShowHand()
         {
             Console.WriteLine("Your hand:");

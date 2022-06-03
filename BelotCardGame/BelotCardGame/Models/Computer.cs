@@ -1,7 +1,13 @@
-﻿namespace BelotCardGame.Models
+﻿using BelotCardGame.Contracts;
+
+namespace BelotCardGame.Models
 {
-    public class Computer
+    public class Computer : IComputer
     {
+        private List<Card> Hand { get; set; } = new List<Card>();
+
+        public void FillHand(Card card) => this.Hand.Add(card);
+
         public void ChooseGameType(int index, List<string> gameTypes)
         {
             Random random = new Random();
