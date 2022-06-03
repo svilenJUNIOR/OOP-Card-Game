@@ -17,6 +17,9 @@ namespace BelotCardGame.Models
 
         public void DrawCards()
         {
+            Console.WriteLine("Dealer is drawing cards!");
+            Thread.Sleep(1000);
+
             Random random = new Random();
 
             for (int i = 1; i <= 10; i++)
@@ -33,6 +36,42 @@ namespace BelotCardGame.Models
 
                 else if (i >= 6 && i <= 10) player.FillHand(new Card(card, cardSuit, cardColor));
             }
+        }
+        public void DrawCardsSecondTime()
+        {
+            Console.WriteLine("\nDealer is drawing cards!");
+            Thread.Sleep(1000);
+
+            Random random = new Random();
+
+            for (int i = 1; i <= 6; i++)
+            {
+                var randomCard = random.Next(cards.Length);
+                var randomSuit = random.Next(suits.Length);
+                var randomColor = random.Next(colors.Length);
+
+                var cardSuit = Convert.ToChar(suits[randomSuit]);
+                var card = cards[randomCard]; ;
+                var cardColor = colors[randomColor];
+
+                if (i <= 3) computer.FillHand(new Card(card, cardSuit, cardColor));
+
+                else if (i >= 4 && i <= 6) player.FillHand(new Card(card, cardSuit, cardColor));
+            }
+        }
+        public void ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
+        {
+            int playerGameIndex = Array.IndexOf(gameTypes,playerGameType);
+            int computerGameIndex = Array.IndexOf(gameTypes,computerGameType);
+
+            Console.WriteLine("\nDealer is comparing game types!");
+            Thread.Sleep(1000);
+
+            if (playerGameIndex > computerGameIndex)
+                Console.WriteLine($"Game type is: {playerGameType}");
+
+            else
+                Console.WriteLine($"Game types is: {computerGameType}");
         }
     }
 }

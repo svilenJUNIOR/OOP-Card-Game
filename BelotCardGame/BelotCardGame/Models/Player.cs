@@ -27,7 +27,7 @@ namespace BelotCardGame.Models
             }
             Console.ResetColor();
         }
-        public int ChooseGameType(string[] gameTypes)
+        public string ChooseGameType(string[] gameTypes)
         {
             Console.WriteLine("\nChoose game type:");
 
@@ -37,9 +37,13 @@ namespace BelotCardGame.Models
             }
 
             Console.Write("Enter the number of the desired type: ");
-            int choice = int.Parse(Console.ReadLine());
+            int gameindex = int.Parse(Console.ReadLine());
 
-            return choice;
+            if (gameindex < 0 || gameindex > gameTypes.Length)
+                throw new ArgumentException("Invalid number of game type!");
+
+            string game = gameTypes[gameindex];
+            return game;
         }
     }
 }

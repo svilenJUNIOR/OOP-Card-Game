@@ -4,7 +4,7 @@ namespace BelotCardGame.Models
 {
     public class Engine : IEngine
     {
-        private readonly string[] playerGameType =  { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
+        private readonly string[] playerGameType = { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
         private readonly List<string> computerGameType = new List<string> { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
 
         private readonly IComputer computer;
@@ -20,8 +20,11 @@ namespace BelotCardGame.Models
         {
             dealer.DrawCards();
             player.ShowHand();
-            int playerChoice = player.ChooseGameType(playerGameType);
-            computer.ChooseGameType(playerChoice, computerGameType);
+            string playerChoice = player.ChooseGameType(playerGameType);
+            string computerChoice = computer.ChooseGameType(playerChoice, computerGameType);
+            dealer.ChooseGameType(computerChoice, playerChoice, playerGameType);
+            dealer.DrawCardsSecondTime();
+            player.ShowHand();
         }
     }
 }

@@ -10,7 +10,15 @@ IServiceProvider serviceProvider = new ServiceCollection()
     .BuildServiceProvider();
 
 IEngine engine = serviceProvider.GetService<IEngine>();
-engine.Run();
+
+try
+{
+    engine.Run();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}
 
 
 

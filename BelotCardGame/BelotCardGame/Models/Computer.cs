@@ -8,17 +8,22 @@ namespace BelotCardGame.Models
 
         public void FillHand(Card card) => this.Hand.Add(card);
 
-        public void ChooseGameType(int index, List<string> gameTypes)
+        public string ChooseGameType(string playerGametype, List<string> gameTypes)
         {
             Random random = new Random();
+            int index = gameTypes.IndexOf(playerGametype);
+
             gameTypes.RemoveRange(1, index);
 
-            Console.WriteLine("Computer chooses game type!");
+            Console.WriteLine("\nComputer chooses game type!");
+            Thread.Sleep(1000);
 
-            int gameNumber = random.Next(0, gameTypes.Count());
-            string game = gameTypes[gameNumber];
+            int gameIndex = random.Next(0, gameTypes.Count());
+            string game = gameTypes[gameIndex];
 
             Console.WriteLine($"Computer choose: {game}");
+
+            return game;
         }
     }
 }
