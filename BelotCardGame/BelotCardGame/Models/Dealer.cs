@@ -104,7 +104,7 @@ namespace BelotCardGame.Models
                             playerScore += score.Value;
                     }
 
-                    for (int i = 0; i < playersHand.Count(); i++)
+                    for (int i = 0; i < computersHand.Count(); i++)
                     {
                         if (computersHand[i].CardType == score.Key)
                             computerScore += score.Value;
@@ -141,19 +141,46 @@ namespace BelotCardGame.Models
                             playerScore += score.Value;
                     }
 
-                    for (int i = 0; i < playersHand.Count(); i++)
+                    for (int i = 0; i < computersHand.Count(); i++)
                     {
                         if (computersHand[i].CardType == score.Key)
                             computerScore += score.Value;
                     }
                 }
 
+                int playerBonus = scoreBoard.CalculateBonus(playersHand);
+                int computerBonus = scoreBoard.CalculateBonus(computersHand);
+
+                playerScore += playerBonus;
+                computerScore += computerBonus;
+
+                if (playerScore > computerScore)
+                {
+                    Console.WriteLine($"Your bonus: {playerBonus}");
+                    Console.WriteLine($"Computer bonus: {computerBonus}");
+
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+
+                    Console.WriteLine("YOU WIN!!!");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"Your bonus: {playerBonus}");
+                    Console.WriteLine($"Computer bonus: {computerBonus}");
+
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+
+                    Console.WriteLine("YOU LOOSE!!!");
+                    return;
+                }
             }
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
             {
                 ScoreBoard = this.scoreBoard.ColorScore;
-
             }
         }
     }
