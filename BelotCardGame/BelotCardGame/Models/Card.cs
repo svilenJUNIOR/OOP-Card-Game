@@ -2,14 +2,14 @@
 {
     public class Card
     {
-        public Card(int number, char suit, string color)
+        public Card(string cardType, char suit, string color)
         {
-            this.Number = number;
+            this.CardType = cardType;
             this.Suit = suit;
             this.Color = color;
         }
 
-        public int Number { get; set; }
+        public string CardType { get; set; }
         public char Suit { get; set; }
         public string Color { get; set; }
     }
