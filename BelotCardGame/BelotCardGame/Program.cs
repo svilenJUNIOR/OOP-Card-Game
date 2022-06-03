@@ -36,10 +36,13 @@ foreach (var card in computerhand)
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"{card.CardType}{card.Suit}");
     }
-    Console.ForegroundColor = ConsoleColor.Black;
-    Console.WriteLine($"{card.CardType}{card.Suit}");
+    else if (card.Color == "black")
+    {
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.WriteLine($"{card.CardType}{card.Suit}");
+    }
 }
-
+Console.ResetColor();
 Console.WriteLine(new String('-', 100));
 
 foreach (var card in playerHand)
@@ -49,7 +52,11 @@ foreach (var card in playerHand)
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"{card.CardType}{card.Suit}");
     }
-    Console.ForegroundColor = ConsoleColor.Black;
-    Console.WriteLine($"{card.CardType}{card.Suit}");
-}
 
+    else if (card.Color == "black")
+    {
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.WriteLine($"{card.CardType}{card.Suit}");
+    }
+}
+Console.ResetColor();
