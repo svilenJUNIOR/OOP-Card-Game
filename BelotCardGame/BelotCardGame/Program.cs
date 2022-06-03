@@ -1,9 +1,10 @@
 ﻿using BelotCardGame.Models;
 
 Random random = new Random();
+Player player = new Player();
+Computer computer = new Computer();
 
 var computerhand = new List<Card>();
-var playerHand = new List<Card>();
 
 var cards = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 var suits = new string[] { "\u2663", "\u2666", "\u2665", "\u2660", };
@@ -11,7 +12,6 @@ var colors = new string[] { "black", "red" };
 
 var playerGameType = new string[] { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
 var computerGameType = new List<string>() { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
-
 
 for (int i = 1; i <= 10; i++)
 {
@@ -25,58 +25,9 @@ for (int i = 1; i <= 10; i++)
 
     if (i <= 5) computerhand.Add(new Card(card, cardSuit, cardColor));
 
-    else if (i >= 6 && i <= 10) playerHand.Add(new Card(card, cardSuit, cardColor));
+    else if (i >= 6 && i <= 10) player.Hand.Add(new Card(card, cardSuit, cardColor));
 }
 
-Console.WriteLine("Computer hand:");
-foreach (var card in computerhand)
-{
-    if (card.Color == "red")
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"{card.CardType}{card.Suit}");
-    }
-    else if (card.Color == "black")
-    {
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.WriteLine($"{card.CardType}{card.Suit}");
-    }
-}
-
-Console.ResetColor();
-Console.WriteLine("Your hand:");
-
-foreach (var card in playerHand)
-{
-    if (card.Color == "red")
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"{card.CardType}{card.Suit}");
-    }
-
-    else if (card.Color == "black")
-    {
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.WriteLine($"{card.CardType}{card.Suit}");
-    }
-}
-Console.ResetColor();
-
-Console.WriteLine("\nChoose game type:");
-
-for (int i = 0; i < playerGameType.Length; i++)
-{
-    Console.WriteLine($"{i}: {playerGameType[i]}");
-}
-
-Console.Write("Enter the number of the desired type: ");
-int choice = int.Parse(Console.ReadLine());
-
-computerGameType.RemoveAt(choice);
-
-Console.WriteLine("Computer chooses game type!");
-
-int gameNumber = random.Next(0, computerGameType.Count() + 1);
-string game = computerGameType[gameNumber];
-
-Console.WriteLine($"Computer choose: {game}");
+player.ShowHand();
+int playerChoice = player.ChooseGameType(playerGameType);
+computer.ChooseGameType(playerChoice, computerGameType);
