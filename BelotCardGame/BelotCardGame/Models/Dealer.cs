@@ -130,7 +130,23 @@ namespace BelotCardGame.Models
 
             else if (gameType == "all trumps")
             {
+                this.scoreBoard.FillAllTrump();
                 ScoreBoard = this.scoreBoard.AllTrumpsScore;
+
+                foreach (var score in ScoreBoard)
+                {
+                    for (int i = 0; i < playersHand.Count(); i++)
+                    {
+                        if (playersHand[i].CardType == score.Key)
+                            playerScore += score.Value;
+                    }
+
+                    for (int i = 0; i < playersHand.Count(); i++)
+                    {
+                        if (computersHand[i].CardType == score.Key)
+                            computerScore += score.Value;
+                    }
+                }
 
             }
 

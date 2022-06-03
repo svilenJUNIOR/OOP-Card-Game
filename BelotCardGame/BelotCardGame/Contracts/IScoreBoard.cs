@@ -1,4 +1,6 @@
-﻿namespace BelotCardGame.Contracts
+﻿using BelotCardGame.Models;
+
+namespace BelotCardGame.Contracts
 {
     public interface IScoreBoard
     {
@@ -8,5 +10,6 @@
         public void FillNoTrump();
         public void FillAllTrump();
         public void FillColor();
+        public void CalculateBonus(List<Card> Hand);
     }
 }
