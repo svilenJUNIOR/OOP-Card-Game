@@ -34,32 +34,5 @@ for (int i = 1; i <= 10; i++)
 
     else if (i >= 6 && i <= 10) playerHand.Add(new Card(cardNumber, cardSuit, cardColor));
 }
-
-Console.WriteLine("Your hand:");
-
-foreach (var card in playerHand)
-{
-    Console.WriteLine($"{card.Color} - {card.Suit} - {card.Number}");
-}
-
-int playerGame = 0;
-int computerGame = 0;
-
-Console.WriteLine("\nChoose game type:");
-for (int i = 0; i < playerGameType.Length; i++)
-{
-}
-
-
-for (int i = playerGame; i < playerGameType.Length; i++)
-{
-    computerGameType.Add(playerGameType[i]);
-}
-computerGameType.Add("Give up");
-
-Console.WriteLine("\nComputer Chooses game type:");
-for (int i = 0; i < computerGameType.Count(); i++)
-{
-    Console.WriteLine($"{i}: {computerGameType[i]}");
-}
-Console.WriteLine($"Choosen: {computerGameType[computerGame]}");
+Console.WriteLine(computerhand.Count());
+Console.WriteLine(playerHand.Count());
