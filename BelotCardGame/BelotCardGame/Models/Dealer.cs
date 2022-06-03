@@ -148,8 +148,8 @@ namespace BelotCardGame.Models
                     }
                 }
 
-                int playerBonus = scoreBoard.CalculateBonus(playersHand);
-                int computerBonus = scoreBoard.CalculateBonus(computersHand);
+                int playerBonus = scoreBoard.CalculateBonus(playersHand, null);
+                int computerBonus = scoreBoard.CalculateBonus(computersHand, null);
 
                 playerScore += playerBonus;
                 computerScore += computerBonus;
@@ -180,7 +180,46 @@ namespace BelotCardGame.Models
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
             {
+                this.scoreBoard.FillColor();
                 ScoreBoard = this.scoreBoard.ColorScore;
+
+                for (int i = 0; i < playersHand.Count(); i++)
+                    if (playersHand[i].CardType == "9" || playersHand[i].CardType == "J")
+                        playersHand[i].CardType += "C";
+
+                for (int i = 0; i < computersHand.Count(); i++)
+                    if (computersHand[i].CardType == "9" || computersHand[i].CardType == "J")
+                        computersHand[i].CardType += "C";
+
+                foreach (var score in ScoreBoard)
+                {
+                    for (int i = 0; i < playersHand.Count(); i++)
+                    {
+                        if (playersHand[i].CardType == score.Key)
+                            playerScore += score.Value;
+                    }
+
+                    for (int i = 0; i < computersHand.Count(); i++)
+                    {
+                        if (computersHand[i].CardType == score.Key)
+                            computerScore += score.Value;
+                    }
+                }
+
+                if (playerScore > computerScore)
+                {
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+                    Console.WriteLine("YOU WIN!!!");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"Your score: {playerScore}");
+                    Console.WriteLine($"Computer score: {computerScore}");
+                    Console.WriteLine("YOU LOOSE!!!");
+                    return;
+                }
             }
         }
     }

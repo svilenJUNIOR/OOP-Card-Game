@@ -49,16 +49,20 @@ namespace BelotCardGame.Models
             this.ColorScore.Add("6", 0);
             this.ColorScore.Add("7", 0);
             this.ColorScore.Add("8", 0);
-            this.ColorScore.Add("9", 14);
+            this.ColorScore.Add("9C", 14);
             this.ColorScore.Add("10", 10);
-            this.ColorScore.Add("J", 20);
+            this.ColorScore.Add("JC", 20);
             this.ColorScore.Add("Q", 3);
             this.ColorScore.Add("K", 4);
             this.ColorScore.Add("A", 11);
         }
 
-        public int CalculateBonus(List<Card> Hand)
+        public int CalculateBonus(List<Card> Hand, string? isGameColored)
         {
+            if (isGameColored != null)
+            {
+
+            }
             var hand = new List<string>();
             foreach (var card in Hand) hand.Add(card.CardType);
 

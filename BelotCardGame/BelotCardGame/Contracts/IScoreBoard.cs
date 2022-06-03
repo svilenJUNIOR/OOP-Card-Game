@@ -10,6 +10,6 @@ namespace BelotCardGame.Contracts
         public void FillNoTrump();
         public void FillAllTrump();
         public void FillColor();
-        public int CalculateBonus(List<Card> Hand);
+        public int CalculateBonus(List<Card> Hand, string? isGameColored);
     }
 }
