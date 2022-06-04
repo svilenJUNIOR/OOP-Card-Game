@@ -18,7 +18,7 @@ namespace BelotCardGame.Models
             this.scoreBoard = scoreBoard;
             this.dealerService = dealerService;
         }
-
+        
         public void DrawCards(int startIndex, int endIndex)
         {
             Console.WriteLine("Dealer is drawing cards!");
