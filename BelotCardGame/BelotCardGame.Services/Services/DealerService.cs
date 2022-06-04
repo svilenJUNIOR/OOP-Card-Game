@@ -1,9 +1,9 @@
 ﻿using BelotCardGame.Constants;
-using BelotCardGame.Contracts;
 using BelotCardGame.InputOutput.Contracts;
 using BelotCardGame.Models;
+using BelotCardGame.Services.Contracts;
 
-namespace BelotCardGame.Services
+namespace BelotCardGame.Services.Services
 {
     public class DealerService : IDealerService
     {
@@ -12,7 +12,7 @@ namespace BelotCardGame.Services
         private readonly IPlayer player;
         private readonly IWriter writer;
         private readonly Values values;
-        public DealerService (IScoreBoard scoreBoard, IComputer computer, IPlayer player, IWriter writer, Values values)
+        public DealerService(IScoreBoard scoreBoard, IComputer computer, IPlayer player, IWriter writer, Values values)
         {
             this.scoreBoard = scoreBoard;
             this.computer = computer;
@@ -81,23 +81,23 @@ namespace BelotCardGame.Services
                 return;
             }
         }
-    
+
         public Dictionary<string, int> FillScoreBoard(Dictionary<string, int> boardToFill, string gameType)
         {
             if (gameType == "Color")
             {
-                this.scoreBoard.FillColor();
-                return boardToFill = this.scoreBoard.ColorScore;
-            }
-            
-            else if (gameType == "AllTrumps")
-            {
-                this.scoreBoard.FillAllTrump();
-                return boardToFill = this.scoreBoard.AllTrumpsScore;
+                scoreBoard.FillColor();
+                return boardToFill = scoreBoard.ColorScore;
             }
 
-            this.scoreBoard.FillNoTrump();
-            return boardToFill = this.scoreBoard.NoTrumpsScore;
+            else if (gameType == "AllTrumps")
+            {
+                scoreBoard.FillAllTrump();
+                return boardToFill = scoreBoard.AllTrumpsScore;
+            }
+
+            scoreBoard.FillNoTrump();
+            return boardToFill = scoreBoard.NoTrumpsScore;
         }
 
         public List<Card> CheckCards(List<Card> Hand)
@@ -120,8 +120,8 @@ namespace BelotCardGame.Services
 
             return color;
         }
-        public int GetBonus(List<Card> Hand, string? color) 
-            => this.scoreBoard.CalculateBonus(Hand, color);
+        public int GetBonus(List<Card> Hand, string? color)
+            => scoreBoard.CalculateBonus(Hand, color);
 
         public void FillHands(int startIndex, int endIndex)
         {
@@ -139,7 +139,7 @@ namespace BelotCardGame.Services
 
                 if (i <= endIndex / 2) computer.FillHand(new Card(card, cardSuit, cardColor));
 
-                else if (i >= (endIndex / 2) + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
+                else if (i >= endIndex / 2 + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
             }
         }
         public string CompareGameTypes(string computerGameType, string playerGameType, string[] gameTypes)

@@ -3,7 +3,8 @@ using BelotCardGame.Contracts;
 using BelotCardGame.InputOutput;
 using BelotCardGame.InputOutput.Contracts;
 using BelotCardGame.Models;
-using BelotCardGame.Services;
+using BelotCardGame.Services.Contracts;
+using BelotCardGame.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 IServiceProvider serviceProvider = new ServiceCollection()

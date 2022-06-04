@@ -1,5 +1,6 @@
 ﻿using BelotCardGame.Contracts;
 using BelotCardGame.InputOutput.Contracts;
+using BelotCardGame.Services.Contracts;
 
 namespace BelotCardGame.Models
 {
