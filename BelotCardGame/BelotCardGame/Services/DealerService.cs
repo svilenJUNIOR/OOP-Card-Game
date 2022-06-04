@@ -3,8 +3,11 @@ using BelotCardGame.Models;
 
 namespace BelotCardGame.Services
 {
-    internal class DealerService : IDealerService
+    public class DealerService : IDealerService
     {
+        private readonly IScoreBoard scoreBoard;
+        public DealerService (IScoreBoard scoreBoard) => this.scoreBoard = scoreBoard;
+
         public int CollectScore(List<Card> hand, Dictionary<string, int> ScoreBoard)
         {
             int points = 0;
@@ -63,6 +66,24 @@ namespace BelotCardGame.Services
                 Console.WriteLine("YOU LOOSE!!!");
                 return;
             }
+        }
+    
+        public Dictionary<string, int> FillScoreBoard(Dictionary<string, int> boardToFill, string gameType)
+        {
+            if (gameType == "Color")
+            {
+                this.scoreBoard.FillColor();
+                return boardToFill = this.scoreBoard.ColorScore;
+            }
+            
+            else if (gameType == "AllTrumps")
+            {
+                this.scoreBoard.FillAllTrump();
+                return boardToFill = this.scoreBoard.AllTrumpsScore;
+            }
+
+            this.scoreBoard.FillNoTrump();
+            return boardToFill = this.scoreBoard.NoTrumpsScore;
         }
     }
 }

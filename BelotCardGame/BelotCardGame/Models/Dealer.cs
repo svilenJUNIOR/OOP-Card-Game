@@ -1,22 +1,21 @@
-﻿using BelotCardGame.Contracts;
+﻿using BelotCardGame.Constants;
+using BelotCardGame.Contracts;
 
 namespace BelotCardGame.Models
 {
     public class Dealer : IDealer
     {
-        private readonly string[] cards = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        private readonly string[] suits = { "\u2663", "\u2666", "\u2665", "\u2660", };
-        private readonly string[] colors = { "black", "red" };
         private readonly IComputer computer;
         private readonly IPlayer player;
-        private readonly IScoreBoard scoreBoard;
         private readonly IDealerService dealerService;
-        public Dealer(IComputer computer, IPlayer player, IScoreBoard scoreBoard, IDealerService dealerService)
+        private readonly Values values;
+        public Dealer(IComputer computer, IPlayer player,IDealerService dealerService,
+            Values values)
         {
             this.computer = computer;
             this.player = player;
-            this.scoreBoard = scoreBoard;
             this.dealerService = dealerService;
+            this.values = values;
         }
         
         public void DrawCards(int startIndex, int endIndex)
@@ -28,13 +27,13 @@ namespace BelotCardGame.Models
 
             for (int i = startIndex; i <= endIndex; i++)
             {
-                var randomCard = random.Next(cards.Length);
-                var randomSuit = random.Next(suits.Length);
-                var randomColor = random.Next(colors.Length);
+                var randomCard = random.Next(values.cards.Length);
+                var randomSuit = random.Next(values.suits.Length);
+                var randomColor = random.Next(values.colors.Length);
 
-                var cardSuit = Convert.ToChar(suits[randomSuit]);
-                var card = cards[randomCard]; ;
-                var cardColor = colors[randomColor];
+                var cardSuit = Convert.ToChar(values.suits[randomSuit]);
+                var card = values.cards[randomCard]; ;
+                var cardColor = values.colors[randomColor];
 
                 if (i <= endIndex / 2) computer.FillHand(new Card(card, cardSuit, cardColor));
 
@@ -64,7 +63,7 @@ namespace BelotCardGame.Models
             Console.WriteLine($"Game types is: {computerGameType}");
             return computerGameType;
         }
-        public void CollectPoints(string gameType, List<Card> playersHand, List<Card> computersHand)
+        public void Play(string gameType, List<Card> playersHand, List<Card> computersHand)
         {
             Dictionary<string, int> ScoreBoard = null;
 
@@ -73,8 +72,7 @@ namespace BelotCardGame.Models
 
             if (gameType == "no trumps")
             {
-                this.scoreBoard.FillNoTrump();
-                ScoreBoard = this.scoreBoard.NoTrumpsScore;
+                ScoreBoard = this.dealerService.FillScoreBoard(ScoreBoard, "NoTrumps");
 
                 playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
                 computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
@@ -84,8 +82,7 @@ namespace BelotCardGame.Models
 
             else if (gameType == "all trumps")
             {
-                this.scoreBoard.FillAllTrump();
-                ScoreBoard = this.scoreBoard.AllTrumpsScore;
+                ScoreBoard = this.dealerService.FillScoreBoard(ScoreBoard, "AllTrumps");
 
                 playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
                 computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
@@ -119,6 +116,8 @@ namespace BelotCardGame.Models
                 for (int i = 0; i < computersHand.Count(); i++)
                     if (computersHand[i].CardType == "9" || computersHand[i].CardType == "J")
                         computersHand[i].CardType += "C";
+
+                ScoreBoard = this.dealerService.FillScoreBoard(ScoreBoard, "Color");
 
                 playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
                 computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);

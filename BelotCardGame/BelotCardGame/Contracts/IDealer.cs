@@ -6,6 +6,6 @@ namespace BelotCardGame.Contracts
     {
         void DrawCards(int startIndex, int endIndex);
         string ChooseGameType(string computerGameType, string playerGameType, string[] gametypes);
-        void CollectPoints(string gameType, List<Card> playersHand, List<Card> computersHand);
+        void Play(string gameType, List<Card> playersHand, List<Card> computersHand);
     }
 }

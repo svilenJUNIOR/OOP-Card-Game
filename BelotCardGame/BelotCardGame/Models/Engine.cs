@@ -1,31 +1,31 @@
-﻿using BelotCardGame.Contracts;
+﻿using BelotCardGame.Constants;
+using BelotCardGame.Contracts;
 
 namespace BelotCardGame.Models
 {
     public class Engine : IEngine
     {
-        private readonly string[] playerGameType = { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
-        private readonly List<string> computerGameType = new List<string> { "give up", "clubs", "diamonds", "hearts", "spades", "no trumps", "all trumps" };
-
         private readonly IComputer computer;
         private readonly IPlayer player;
         private readonly IDealer dealer;
-        public Engine(IComputer computer, IPlayer player, IDealer dealer)
+        private readonly Values values;
+        public Engine(IComputer computer, IPlayer player, IDealer dealer, Values values)
         {
             this.computer = computer;
             this.player = player;
             this.dealer = dealer;
+            this.values = values;
         }
         public void Run()
         {
             dealer.DrawCards(1, 10);
             player.ShowHand();
-            string playerChoice = player.ChooseGameType(playerGameType);
-            string computerChoice = computer.ChooseGameType(playerChoice, computerGameType);
-            string choosenGameType = dealer.ChooseGameType(computerChoice, playerChoice, playerGameType);
+            string playerChoice = player.ChooseGameType(values.playerGameType);
+            string computerChoice = computer.ChooseGameType(playerChoice, values.computerGameType);
+            string choosenGameType = dealer.ChooseGameType(computerChoice, playerChoice, values.playerGameType);
             dealer.DrawCards(1, 6);
             player.ShowHand();
-            dealer.CollectPoints(choosenGameType, player.ReturnHand(), computer.ReturnHand());
+            dealer.Play(choosenGameType, player.ReturnHand(), computer.ReturnHand());
         }
     }
 }
