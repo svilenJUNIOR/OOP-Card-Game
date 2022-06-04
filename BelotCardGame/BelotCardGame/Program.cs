@@ -16,6 +16,8 @@ IServiceProvider serviceProvider = new ServiceCollection()
     .AddScoped<IDealerService, DealerService>()
     .AddScoped<IWriter, Writer>()
     .AddScoped<IReader, Reader>()
+    .AddScoped<IPlayerService, PlayerService>()
+    .AddScoped<IComputerService, ComputerService>()
     .AddScoped<Values, Values>()
     .BuildServiceProvider();
 

@@ -6,7 +6,12 @@ namespace BelotCardGame.Infrastructure.Models
     public class Computer : IComputer
     {
         private readonly IWriter writer;
-        public Computer(IWriter writer) => this.writer = writer;
+        private readonly IComputerService computerService;
+        public Computer(IWriter writer, IComputerService computerService)
+        {
+            this.writer = writer;
+            this.computerService = computerService;
+        }
 
         private List<Card> Hand { get; set; } = new List<Card>();
 
