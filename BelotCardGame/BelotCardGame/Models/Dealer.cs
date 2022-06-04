@@ -39,7 +39,7 @@ namespace BelotCardGame.Models
                 else if (i >= (endIndex / 2) + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
             }
         }
-        
+
         public string ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
         {
             if (computerGameType == "give up" && playerGameType == "give up")
@@ -75,36 +75,10 @@ namespace BelotCardGame.Models
                 this.scoreBoard.FillNoTrump();
                 ScoreBoard = this.scoreBoard.NoTrumpsScore;
 
-                foreach (var score in ScoreBoard)
-                {
-                    for (int i = 0; i < playersHand.Count(); i++)
-                    {
-                        if (playersHand[i].CardType == score.Key)
-                            playerScore += score.Value;
-                    }
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
 
-                    for (int i = 0; i < computersHand.Count(); i++)
-                    {
-                        if (computersHand[i].CardType == score.Key)
-                            computerScore += score.Value;
-                    }
-                }
-
-                if (playerScore > computerScore)
-                {
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
-                    Console.WriteLine("YOU WIN!!!");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
-                    Console.WriteLine("YOU LOOSE!!!");
-                    return;
-                }
-
+                this.PrintWinner(playerScore, computerScore);
             }
 
             else if (gameType == "all trumps")
@@ -112,20 +86,8 @@ namespace BelotCardGame.Models
                 this.scoreBoard.FillAllTrump();
                 ScoreBoard = this.scoreBoard.AllTrumpsScore;
 
-                foreach (var score in ScoreBoard)
-                {
-                    for (int i = 0; i < playersHand.Count(); i++)
-                    {
-                        if (playersHand[i].CardType == score.Key)
-                            playerScore += score.Value;
-                    }
-
-                    for (int i = 0; i < computersHand.Count(); i++)
-                    {
-                        if (computersHand[i].CardType == score.Key)
-                            computerScore += score.Value;
-                    }
-                }
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
 
                 int playerBonus = scoreBoard.CalculateBonus(playersHand, null);
                 int computerBonus = scoreBoard.CalculateBonus(computersHand, null);
@@ -133,28 +95,7 @@ namespace BelotCardGame.Models
                 playerScore += playerBonus;
                 computerScore += computerBonus;
 
-                if (playerScore > computerScore)
-                {
-                    Console.WriteLine($"Your bonus: {playerBonus}");
-                    Console.WriteLine($"Computer bonus: {computerBonus}");
-
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
-
-                    Console.WriteLine("YOU WIN!!!");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine($"Your bonus: {playerBonus}");
-                    Console.WriteLine($"Computer bonus: {computerBonus}");
-
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
-
-                    Console.WriteLine("YOU LOOSE!!!");
-                    return;
-                }
+                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
             }
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
@@ -178,20 +119,8 @@ namespace BelotCardGame.Models
                     if (computersHand[i].CardType == "9" || computersHand[i].CardType == "J")
                         computersHand[i].CardType += "C";
 
-                foreach (var score in ScoreBoard)
-                {
-                    for (int i = 0; i < playersHand.Count(); i++)
-                    {
-                        if (playersHand[i].CardType == score.Key)
-                            playerScore += score.Value;
-                    }
-
-                    for (int i = 0; i < computersHand.Count(); i++)
-                    {
-                        if (computersHand[i].CardType == score.Key)
-                            computerScore += score.Value;
-                    }
-                }
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
 
                 int playerBonus = scoreBoard.CalculateBonus(playersHand, color);
                 int computerBonus = scoreBoard.CalculateBonus(computersHand, color);
@@ -199,28 +128,61 @@ namespace BelotCardGame.Models
                 playerScore += playerBonus;
                 computerScore += computerBonus;
 
-                if (playerScore > computerScore)
-                {
-                    Console.WriteLine($"Your bonus: {playerBonus}");
-                    Console.WriteLine($"Computer bonus: {computerBonus}");
+                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
+            }
+        }
 
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
+        private int CollectScore(List<Card> hand, Dictionary<string, int> ScoreBoard)
+        {
+            int points = 0;
 
-                    Console.WriteLine("YOU WIN!!!");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine($"Your bonus: {playerBonus}");
-                    Console.WriteLine($"Computer bonus: {computerBonus}");
+            foreach (var score in ScoreBoard)
+                for (int i = 0; i < hand.Count(); i++)
+                    if (hand[i].CardType == score.Key)
+                        points += score.Value;
 
-                    Console.WriteLine($"Your score: {playerScore}");
-                    Console.WriteLine($"Computer score: {computerScore}");
+            return points;
+        }
+        private void PrintWinner(int playerScore, int computerScore)
+        {
+            if (playerScore > computerScore)
+            {
+                Console.WriteLine($"Your score: {playerScore}");
+                Console.WriteLine($"Computer score: {computerScore}");
+                Console.WriteLine("YOU WIN!!!");
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"Your score: {playerScore}");
+                Console.WriteLine($"Computer score: {computerScore}");
+                Console.WriteLine("YOU LOOSE!!!");
+                return;
+            }
+        }
+        private void PrintWinner(int playerScore, int computerScore, int playerBonus, int computerBonus)
+        {
+            if (playerScore > computerScore)
+            {
+                Console.WriteLine($"Your bonus: {playerBonus}");
+                Console.WriteLine($"Computer bonus: {computerBonus}");
 
-                    Console.WriteLine("YOU LOOSE!!!");
-                    return;
-                }
+                Console.WriteLine($"Your score: {playerScore}");
+                Console.WriteLine($"Computer score: {computerScore}");
+
+                Console.WriteLine("YOU WIN!!!");
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"Your bonus: {playerBonus}");
+                Console.WriteLine($"Computer bonus: {computerBonus}");
+
+                Console.WriteLine($"Your score: {playerScore}");
+                Console.WriteLine($"Computer score: {computerScore}");
+
+                Console.WriteLine("YOU LOOSE!!!");
+                return;
             }
         }
     }
