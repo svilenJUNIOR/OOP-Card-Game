@@ -1,7 +1,12 @@
-﻿namespace BelotCardGame.Infrastructure.Models
+﻿using BelotCardGame.Infrastructure.Constants;
+
+namespace BelotCardGame.Infrastructure.Models
 {
     public class Card
     {
+        private string type;
+        private char suit;
+        private string color;
         public Card(string cardType, char suit, string color)
         {
             CardType = cardType;
@@ -9,8 +14,44 @@
             Color = color;
         }
 
-        public string CardType { get; set; }
-        public char Suit { get; set; }
-        public string Color { get; set; }
+        public string CardType 
+        {
+            get { return type; }
+            set
+            {
+                if (!new List<string> { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" }.Contains(value))
+                {
+                    throw new ArgumentException(Messages.WrongType);
+                }
+
+                type = value;
+            }
+        }
+        public char Suit
+        {
+            get { return suit; }
+            set
+            {
+                if (!new List<string> { "\u2663", "\u2666", "\u2665", "\u2660", }.Contains(value.ToString()))
+                {
+                    throw new ArgumentException(Messages.WrongSuit);
+                }
+
+                suit = value;
+            }
+        }
+        public string Color
+        {
+            get { return color; }
+            set
+            {
+                if (!new List<string> { "red", "black" }.Contains(value))
+                {
+                    throw new ArgumentException(Messages.WrongColor);
+                }
+
+                color = value;
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace BelotCardGame.Engine
             this.dealer = dealer;
             this.values = values;
         }
+
         public void Run()
         {
             dealer.DrawCards(1, 10);

@@ -23,14 +23,11 @@ IServiceProvider serviceProvider = new ServiceCollection()
 
 IEngine engine = serviceProvider.GetService<IEngine>();
 
-//try
-//{
-//    engine.Run();
-//}
-//catch (ArgumentException e)
-//{
-//    Console.WriteLine(e.Message);
-//}
-engine.Run();
-
-
+try
+{
+    engine.Run();
+}
+catch (ArgumentException e)
+{
+    Console.WriteLine(e.Message);
+}
