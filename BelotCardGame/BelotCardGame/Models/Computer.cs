@@ -1,9 +1,13 @@
 ﻿using BelotCardGame.Contracts;
+using BelotCardGame.InputOutput.Contracts;
 
 namespace BelotCardGame.Models
 {
     public class Computer : IComputer
     {
+        private readonly IWriter writer;
+        public Computer (IWriter writer) => this.writer = writer;
+
         private List<Card> Hand { get; set; } = new List<Card>();
 
         public void FillHand(Card card) => this.Hand.Add(card);
@@ -15,13 +19,13 @@ namespace BelotCardGame.Models
 
             gameTypes.RemoveRange(1, index);
 
-            Console.WriteLine("\nComputer chooses game type!");
+            writer.WriteLine("\nComputer chooses game type!");
             Thread.Sleep(1000);
 
             int gameIndex = random.Next(0, gameTypes.Count());
             string game = gameTypes[gameIndex];
 
-            Console.WriteLine($"Computer choose: {game}");
+            writer.WriteLine($"Computer choose: {game}");
 
             return game;
         }

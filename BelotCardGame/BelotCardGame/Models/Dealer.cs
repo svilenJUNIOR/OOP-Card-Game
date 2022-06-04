@@ -1,15 +1,21 @@
 ﻿using BelotCardGame.Contracts;
+using BelotCardGame.InputOutput.Contracts;
 
 namespace BelotCardGame.Models
 {
     public class Dealer : IDealer
     {
         private readonly IDealerService dealerService;
-        public Dealer(IDealerService dealerService) => this.dealerService = dealerService;
+        private readonly IWriter writer;
+        public Dealer(IDealerService dealerService, IWriter writer)
+        {
+            this.dealerService = dealerService;
+            this.writer = writer;
+        }
 
         public void DrawCards(int startIndex, int endIndex)
         {
-            Console.WriteLine("Dealer is drawing cards!");
+            writer.WriteLine("Dealer is drawing cards!");
             Thread.Sleep(1000);
             this.dealerService.FillHands(startIndex, endIndex);
         }

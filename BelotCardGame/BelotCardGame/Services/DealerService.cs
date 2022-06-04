@@ -1,5 +1,6 @@
 ﻿using BelotCardGame.Constants;
 using BelotCardGame.Contracts;
+using BelotCardGame.InputOutput.Contracts;
 using BelotCardGame.Models;
 
 namespace BelotCardGame.Services
@@ -9,13 +10,15 @@ namespace BelotCardGame.Services
         private readonly IScoreBoard scoreBoard;
         private readonly IComputer computer;
         private readonly IPlayer player;
+        private readonly IWriter writer;
         private readonly Values values;
-        public DealerService (IScoreBoard scoreBoard, IComputer computer, IPlayer player, Values values)
+        public DealerService (IScoreBoard scoreBoard, IComputer computer, IPlayer player, IWriter writer, Values values)
         {
             this.scoreBoard = scoreBoard;
             this.computer = computer;
             this.player = player;
             this.values = values;
+            this.writer = writer;
         }
 
 
@@ -39,16 +42,16 @@ namespace BelotCardGame.Services
         {
             if (playerScore > computerScore)
             {
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-                Console.WriteLine("YOU WIN!!!");
+                writer.WriteLine($"Your score: {playerScore}");
+                writer.WriteLine($"Computer score: {computerScore}");
+                writer.WriteLine("YOU WIN!!!");
                 return;
             }
             else
             {
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-                Console.WriteLine("YOU LOOSE!!!");
+                writer.WriteLine($"Your score: {playerScore}");
+                writer.WriteLine($"Computer score: {computerScore}");
+                writer.WriteLine("YOU LOOSE!!!");
                 return;
             }
         }
@@ -57,24 +60,24 @@ namespace BelotCardGame.Services
         {
             if (playerScore > computerScore)
             {
-                Console.WriteLine($"Your bonus: {playerBonus}");
-                Console.WriteLine($"Computer bonus: {computerBonus}");
+                writer.WriteLine($"Your bonus: {playerBonus}");
+                writer.WriteLine($"Computer bonus: {computerBonus}");
 
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
+                writer.WriteLine($"Your score: {playerScore}");
+                writer.WriteLine($"Computer score: {computerScore}");
 
-                Console.WriteLine("YOU WIN!!!");
+                writer.WriteLine("YOU WIN!!!");
                 return;
             }
             else
             {
-                Console.WriteLine($"Your bonus: {playerBonus}");
-                Console.WriteLine($"Computer bonus: {computerBonus}");
+                writer.WriteLine($"Your bonus: {playerBonus}");
+                writer.WriteLine($"Computer bonus: {computerBonus}");
 
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
+                writer.WriteLine($"Your score: {playerScore}");
+                writer.WriteLine($"Computer score: {computerScore}");
 
-                Console.WriteLine("YOU LOOSE!!!");
+                writer.WriteLine("YOU LOOSE!!!");
                 return;
             }
         }
@@ -143,23 +146,23 @@ namespace BelotCardGame.Services
         {
             if (computerGameType == "give up" && playerGameType == "give up")
             {
-                Console.WriteLine("Game is draw");
+                writer.WriteLine("Game is draw");
                 return null;
             }
 
             int playerGameIndex = Array.IndexOf(gameTypes, playerGameType);
             int computerGameIndex = Array.IndexOf(gameTypes, computerGameType);
 
-            Console.WriteLine("\nDealer is comparing game types!");
+            writer.WriteLine("\nDealer is comparing game types!");
             Thread.Sleep(1000);
 
             if (playerGameIndex > computerGameIndex)
             {
-                Console.WriteLine($"Game type is: {playerGameType}");
+                writer.WriteLine($"Game type is: {playerGameType}");
                 return playerGameType;
             }
 
-            Console.WriteLine($"Game types is: {computerGameType}");
+            writer.WriteLine($"Game types is: {computerGameType}");
             return computerGameType;
         }
     }

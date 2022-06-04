@@ -3,5 +3,6 @@
     public interface IReader
     {
         public void ReadLine();
+        public int ReadInt();
     }
 }
