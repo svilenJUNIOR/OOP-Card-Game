@@ -14,6 +14,7 @@ IServiceProvider serviceProvider = new ServiceCollection()
     .AddScoped<IScoreBoard, ScoreBoard>()
     .AddScoped<IDealerService, DealerService>()
     .AddScoped<IWriter, Writer>()
+    .AddScoped<IReader, Reader>()
     .AddScoped<Values, Values>()
     .BuildServiceProvider();
 

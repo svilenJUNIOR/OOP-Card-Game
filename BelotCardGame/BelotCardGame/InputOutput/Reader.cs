@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BelotCardGame.InputOutput.Contracts;
 
 namespace BelotCardGame.InputOutput
 {
-    internal class Reader
+    public class Reader : IReader
     {
+        public void ReadLine() => Console.ReadLine();
     }
 }
