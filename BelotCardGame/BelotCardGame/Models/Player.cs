@@ -45,7 +45,6 @@ namespace BelotCardGame.Models
             string game = gameTypes[gameindex];
             return game;
         }
-
         public List<Card> ReturnHand() => Hand;
     }
 }

@@ -18,12 +18,12 @@ namespace BelotCardGame.Models
         }
         public void Run()
         {
-            dealer.DrawCards();
+            dealer.DrawCards(1, 10);
             player.ShowHand();
             string playerChoice = player.ChooseGameType(playerGameType);
             string computerChoice = computer.ChooseGameType(playerChoice, computerGameType);
             string choosenGameType = dealer.ChooseGameType(computerChoice, playerChoice, playerGameType);
-            dealer.DrawCardsSecondTime();
+            dealer.DrawCards(1, 6);
             player.ShowHand();
             dealer.CollectPoints(choosenGameType, player.ReturnHand(), computer.ReturnHand());
         }

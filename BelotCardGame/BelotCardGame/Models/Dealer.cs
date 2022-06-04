@@ -17,14 +17,14 @@ namespace BelotCardGame.Models
             this.scoreBoard = scoreBoard;
         }
 
-        public void DrawCards()
+        public void DrawCards(int startIndex, int endIndex)
         {
             Console.WriteLine("Dealer is drawing cards!");
             Thread.Sleep(1000);
 
             Random random = new Random();
 
-            for (int i = 1; i <= 10; i++)
+            for (int i = startIndex; i <= endIndex; i++)
             {
                 var randomCard = random.Next(cards.Length);
                 var randomSuit = random.Next(suits.Length);
@@ -34,33 +34,12 @@ namespace BelotCardGame.Models
                 var card = cards[randomCard]; ;
                 var cardColor = colors[randomColor];
 
-                if (i <= 5) computer.FillHand(new Card(card, cardSuit, cardColor));
+                if (i <= endIndex / 2) computer.FillHand(new Card(card, cardSuit, cardColor));
 
-                else if (i >= 6 && i <= 10) player.FillHand(new Card(card, cardSuit, cardColor));
+                else if (i >= (endIndex / 2) + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
             }
         }
-        public void DrawCardsSecondTime()
-        {
-            Console.WriteLine("\nDealer is drawing cards!");
-            Thread.Sleep(1000);
-
-            Random random = new Random();
-
-            for (int i = 1; i <= 6; i++)
-            {
-                var randomCard = random.Next(cards.Length);
-                var randomSuit = random.Next(suits.Length);
-                var randomColor = random.Next(colors.Length);
-
-                var cardSuit = Convert.ToChar(suits[randomSuit]);
-                var card = cards[randomCard]; ;
-                var cardColor = colors[randomColor];
-
-                if (i <= 3) computer.FillHand(new Card(card, cardSuit, cardColor));
-
-                else if (i >= 4 && i <= 6) player.FillHand(new Card(card, cardSuit, cardColor));
-            }
-        }
+        
         public string ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
         {
             if (computerGameType == "give up" && playerGameType == "give up")

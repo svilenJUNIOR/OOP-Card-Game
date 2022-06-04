@@ -81,24 +81,24 @@ namespace BelotCardGame.Models
             List<string> riga = new List<string> { "J", "Q", "K" };
             List<string> maiorna = new List<string> { "Q", "K", "A" };
 
-            if (!smallTerca.Except(hand).Any() || !riga.Except(hand).Any() || !maiorna.Except(hand).Any())
-                tercaBonus = true;
-
             List<string> malkoPedese = new List<string> { "9", "10", "J", "Q" };
             List<string> rigaPedese = new List<string> { "10", "J", "Q", "K" };
             List<string> maiornoPedese = new List<string> { "J", "Q", "K", "A" };
-
-            if (!malkoPedese.Except(hand).Any() || !rigaPedese.Except(hand).Any() || !maiornoPedese.Except(hand).Any())
-                pedeseBonus = true;
-
+           
             List<string> malkoSto = new List<string> { "8", "9", "10", "J", "Q" };
             List<string> rigaSto = new List<string> { "9", "10", "J", "Q", "K" };
             List<string> maiornoSto = new List<string> { "10", "J", "Q", "K", "A" };
 
+            List<string> belot = new List<string> { "Q", "K" };
+
+            if (!smallTerca.Except(hand).Any() || !riga.Except(hand).Any() || !maiorna.Except(hand).Any())
+                tercaBonus = true;
+
+            if (!malkoPedese.Except(hand).Any() || !rigaPedese.Except(hand).Any() || !maiornoPedese.Except(hand).Any())
+                pedeseBonus = true;
+
             if (!malkoSto.Except(hand).Any() || !rigaSto.Except(hand).Any() || !maiornoSto.Except(hand).Any())
                 stoBonus = true;
-
-            List<string> belot = new List<string> { "Q", "K" };
 
             if (!belot.Except(hand).Any())
                 belotBonus = true;
