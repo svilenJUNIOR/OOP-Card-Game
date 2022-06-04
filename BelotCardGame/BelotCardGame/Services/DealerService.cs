@@ -1,4 +1,5 @@
-﻿using BelotCardGame.Contracts;
+﻿using BelotCardGame.Constants;
+using BelotCardGame.Contracts;
 using BelotCardGame.Models;
 
 namespace BelotCardGame.Services
@@ -6,7 +7,17 @@ namespace BelotCardGame.Services
     public class DealerService : IDealerService
     {
         private readonly IScoreBoard scoreBoard;
-        public DealerService (IScoreBoard scoreBoard) => this.scoreBoard = scoreBoard;
+        private readonly IComputer computer;
+        private readonly IPlayer player;
+        private readonly Values values;
+        public DealerService (IScoreBoard scoreBoard, IComputer computer, IPlayer player, Values values)
+        {
+            this.scoreBoard = scoreBoard;
+            this.computer = computer;
+            this.player = player;
+            this.values = values;
+        }
+
 
         public int CollectScore(List<Card> hand, Dictionary<string, int> ScoreBoard)
         {
@@ -106,8 +117,50 @@ namespace BelotCardGame.Services
 
             return color;
         }
-
         public int GetBonus(List<Card> Hand, string? color) 
             => this.scoreBoard.CalculateBonus(Hand, color);
+
+        public void FillHands(int startIndex, int endIndex)
+        {
+            Random random = new Random();
+
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                var randomCard = random.Next(values.cards.Length);
+                var randomSuit = random.Next(values.suits.Length);
+                var randomColor = random.Next(values.colors.Length);
+
+                var cardSuit = Convert.ToChar(values.suits[randomSuit]);
+                var card = values.cards[randomCard]; ;
+                var cardColor = values.colors[randomColor];
+
+                if (i <= endIndex / 2) computer.FillHand(new Card(card, cardSuit, cardColor));
+
+                else if (i >= (endIndex / 2) + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
+            }
+        }
+        public string CompareGameTypes(string computerGameType, string playerGameType, string[] gameTypes)
+        {
+            if (computerGameType == "give up" && playerGameType == "give up")
+            {
+                Console.WriteLine("Game is draw");
+                return null;
+            }
+
+            int playerGameIndex = Array.IndexOf(gameTypes, playerGameType);
+            int computerGameIndex = Array.IndexOf(gameTypes, computerGameType);
+
+            Console.WriteLine("\nDealer is comparing game types!");
+            Thread.Sleep(1000);
+
+            if (playerGameIndex > computerGameIndex)
+            {
+                Console.WriteLine($"Game type is: {playerGameType}");
+                return playerGameType;
+            }
+
+            Console.WriteLine($"Game types is: {computerGameType}");
+            return computerGameType;
+        }
     }
 }
