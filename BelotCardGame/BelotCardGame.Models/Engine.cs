@@ -1,7 +1,7 @@
-﻿using BelotCardGame.Constants;
-using BelotCardGame.Contracts;
+﻿using BelotCardGame.Infrastructure.Constants;
+using BelotCardGame.Infrastructure.Contracts;
 
-namespace BelotCardGame.Models
+namespace BelotCardGame.Engine
 {
     public class Engine : IEngine
     {

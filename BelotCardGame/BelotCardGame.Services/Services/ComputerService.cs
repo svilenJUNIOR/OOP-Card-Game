@@ -1,6 +1,8 @@
-﻿namespace BelotCardGame.Services.Services
+﻿using BelotCardGame.Infrastructure.Contracts;
+
+namespace BelotCardGame.Infrastructure.Services
 {
-    internal class ComputerService
+    public class ComputerService : IComputerService
     {
     }
 }

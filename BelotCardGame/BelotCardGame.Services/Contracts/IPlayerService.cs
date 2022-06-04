@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BelotCardGame.Services.Contracts
+﻿namespace BelotCardGame.Infrastructure.Contracts
 {
-    internal interface IPlayerService
+    public interface IPlayerService
     {
     }
 }

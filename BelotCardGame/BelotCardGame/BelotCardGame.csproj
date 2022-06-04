@@ -19,4 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BelotCardGame.Models\BelotCardGame.Engine.csproj" />
+    <ProjectReference Include="..\BelotCardGame.Services\BelotCardGame.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

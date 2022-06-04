@@ -1,4 +1,4 @@
-﻿namespace BelotCardGame.Contracts
+﻿namespace BelotCardGame.Engine
 {
     public interface IEngine
     {

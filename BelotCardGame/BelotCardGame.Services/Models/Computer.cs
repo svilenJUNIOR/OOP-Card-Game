@@ -1,16 +1,16 @@
-﻿using BelotCardGame.Contracts;
-using BelotCardGame.InputOutput.Contracts;
+﻿using BelotCardGame.Infrastructure.Contracts;
+using BelotCardGame.Infrastructure.InputOutput.Contracts;
 
-namespace BelotCardGame.Models
+namespace BelotCardGame.Infrastructure.Models
 {
     public class Computer : IComputer
     {
         private readonly IWriter writer;
-        public Computer (IWriter writer) => this.writer = writer;
+        public Computer(IWriter writer) => this.writer = writer;
 
         private List<Card> Hand { get; set; } = new List<Card>();
 
-        public void FillHand(Card card) => this.Hand.Add(card);
+        public void FillHand(Card card) => Hand.Add(card);
 
         public string ChooseGameType(string playerGametype, List<string> gameTypes)
         {

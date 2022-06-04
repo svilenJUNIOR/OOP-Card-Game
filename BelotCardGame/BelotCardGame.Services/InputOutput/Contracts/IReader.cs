@@ -1,4 +1,4 @@
-﻿namespace BelotCardGame.InputOutput.Contracts
+﻿namespace BelotCardGame.Infrastructure.InputOutput.Contracts
 {
     public interface IReader
     {

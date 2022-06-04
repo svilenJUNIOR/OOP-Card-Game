@@ -1,7 +1,7 @@
-﻿using BelotCardGame.Contracts;
-using BelotCardGame.InputOutput.Contracts;
+﻿using BelotCardGame.Infrastructure.Contracts;
+using BelotCardGame.Infrastructure.InputOutput.Contracts;
 
-namespace BelotCardGame.Models
+namespace BelotCardGame.Infrastructure.Models
 {
     public class Player : IPlayer
     {
@@ -11,7 +11,7 @@ namespace BelotCardGame.Models
         {
             this.writer = writer;
             this.reader = reader;
-        } 
+        }
 
         private List<Card> Hand { get; set; } = new List<Card>();
         public void FillHand(Card card) => Hand.Add(card);
@@ -19,7 +19,7 @@ namespace BelotCardGame.Models
         {
             writer.WriteLine("Your hand:");
 
-            foreach (var card in this.Hand)
+            foreach (var card in Hand)
             {
                 if (card.Color == "red")
                 {

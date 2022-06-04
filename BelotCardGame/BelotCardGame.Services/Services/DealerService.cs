@@ -1,9 +1,9 @@
-﻿using BelotCardGame.Constants;
-using BelotCardGame.InputOutput.Contracts;
-using BelotCardGame.Models;
-using BelotCardGame.Services.Contracts;
+﻿using BelotCardGame.Infrastructure.Constants;
+using BelotCardGame.Infrastructure.Contracts;
+using BelotCardGame.Infrastructure.InputOutput.Contracts;
+using BelotCardGame.Infrastructure.Models;
 
-namespace BelotCardGame.Services.Services
+namespace BelotCardGame.Infrastructure.Services
 {
     public class DealerService : IDealerService
     {

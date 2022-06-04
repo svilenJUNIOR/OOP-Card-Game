@@ -1,4 +1,4 @@
-﻿namespace BelotCardGame.Constants
+﻿namespace BelotCardGame.Infrastructure.Constants
 {
     public class Values
     {

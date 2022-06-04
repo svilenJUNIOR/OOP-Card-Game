@@ -1,7 +1,6 @@
-﻿using BelotCardGame.Contracts;
-using System.Text;
+﻿using BelotCardGame.Infrastructure.Contracts;
 
-namespace BelotCardGame.Models
+namespace BelotCardGame.Infrastructure.Models
 {
     public class ScoreBoard : IScoreBoard
     {
@@ -11,51 +10,51 @@ namespace BelotCardGame.Models
 
         public void FillNoTrump()
         {
-            this.NoTrumpsScore.Add("2", 0);
-            this.NoTrumpsScore.Add("3", 0);
-            this.NoTrumpsScore.Add("4", 0);
-            this.NoTrumpsScore.Add("5", 0);
-            this.NoTrumpsScore.Add("6", 0);
-            this.NoTrumpsScore.Add("7", 0);
-            this.NoTrumpsScore.Add("8", 0);
-            this.NoTrumpsScore.Add("9", 0);
-            this.NoTrumpsScore.Add("10", 10);
-            this.NoTrumpsScore.Add("J", 2);
-            this.NoTrumpsScore.Add("Q", 3);
-            this.NoTrumpsScore.Add("K", 4);
-            this.NoTrumpsScore.Add("A", 11);
+            NoTrumpsScore.Add("2", 0);
+            NoTrumpsScore.Add("3", 0);
+            NoTrumpsScore.Add("4", 0);
+            NoTrumpsScore.Add("5", 0);
+            NoTrumpsScore.Add("6", 0);
+            NoTrumpsScore.Add("7", 0);
+            NoTrumpsScore.Add("8", 0);
+            NoTrumpsScore.Add("9", 0);
+            NoTrumpsScore.Add("10", 10);
+            NoTrumpsScore.Add("J", 2);
+            NoTrumpsScore.Add("Q", 3);
+            NoTrumpsScore.Add("K", 4);
+            NoTrumpsScore.Add("A", 11);
         }
         public void FillAllTrump()
         {
-            this.AllTrumpsScore.Add("2", 0);
-            this.AllTrumpsScore.Add("3", 0);
-            this.AllTrumpsScore.Add("4", 0);
-            this.AllTrumpsScore.Add("5", 0);
-            this.AllTrumpsScore.Add("6", 0);
-            this.AllTrumpsScore.Add("7", 0);
-            this.AllTrumpsScore.Add("8", 0);
-            this.AllTrumpsScore.Add("9", 14);
-            this.AllTrumpsScore.Add("10", 10);
-            this.AllTrumpsScore.Add("J", 20);
-            this.AllTrumpsScore.Add("Q", 3);
-            this.AllTrumpsScore.Add("K", 4);
-            this.AllTrumpsScore.Add("A", 11);
+            AllTrumpsScore.Add("2", 0);
+            AllTrumpsScore.Add("3", 0);
+            AllTrumpsScore.Add("4", 0);
+            AllTrumpsScore.Add("5", 0);
+            AllTrumpsScore.Add("6", 0);
+            AllTrumpsScore.Add("7", 0);
+            AllTrumpsScore.Add("8", 0);
+            AllTrumpsScore.Add("9", 14);
+            AllTrumpsScore.Add("10", 10);
+            AllTrumpsScore.Add("J", 20);
+            AllTrumpsScore.Add("Q", 3);
+            AllTrumpsScore.Add("K", 4);
+            AllTrumpsScore.Add("A", 11);
         }
         public void FillColor()
         {
-            this.ColorScore.Add("2", 0);
-            this.ColorScore.Add("3", 0);
-            this.ColorScore.Add("4", 0);
-            this.ColorScore.Add("5", 0);
-            this.ColorScore.Add("6", 0);
-            this.ColorScore.Add("7", 0);
-            this.ColorScore.Add("8", 0);
-            this.ColorScore.Add("9C", 14);
-            this.ColorScore.Add("10", 10);
-            this.ColorScore.Add("JC", 20);
-            this.ColorScore.Add("Q", 3);
-            this.ColorScore.Add("K", 4);
-            this.ColorScore.Add("A", 11);
+            ColorScore.Add("2", 0);
+            ColorScore.Add("3", 0);
+            ColorScore.Add("4", 0);
+            ColorScore.Add("5", 0);
+            ColorScore.Add("6", 0);
+            ColorScore.Add("7", 0);
+            ColorScore.Add("8", 0);
+            ColorScore.Add("9C", 14);
+            ColorScore.Add("10", 10);
+            ColorScore.Add("JC", 20);
+            ColorScore.Add("Q", 3);
+            ColorScore.Add("K", 4);
+            ColorScore.Add("A", 11);
         }
 
         public int CalculateBonus(List<Card> Hand, string? color)
@@ -84,7 +83,7 @@ namespace BelotCardGame.Models
             List<string> malkoPedese = new List<string> { "9", "10", "J", "Q" };
             List<string> rigaPedese = new List<string> { "10", "J", "Q", "K" };
             List<string> maiornoPedese = new List<string> { "J", "Q", "K", "A" };
-           
+
             List<string> malkoSto = new List<string> { "8", "9", "10", "J", "Q" };
             List<string> rigaSto = new List<string> { "9", "10", "J", "Q", "K" };
             List<string> maiornoSto = new List<string> { "10", "J", "Q", "K", "A" };

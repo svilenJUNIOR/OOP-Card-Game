@@ -1,12 +1,12 @@
-﻿namespace BelotCardGame.Models
+﻿namespace BelotCardGame.Infrastructure.Models
 {
     public class Card
     {
         public Card(string cardType, char suit, string color)
         {
-            this.CardType = cardType;
-            this.Suit = suit;
-            this.Color = color;
+            CardType = cardType;
+            Suit = suit;
+            Color = color;
         }
 
         public string CardType { get; set; }

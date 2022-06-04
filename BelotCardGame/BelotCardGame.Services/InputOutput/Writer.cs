@@ -1,6 +1,6 @@
-﻿using BelotCardGame.InputOutput.Contracts;
+﻿using BelotCardGame.Infrastructure.InputOutput.Contracts;
 
-namespace BelotCardGame.InputOutput
+namespace BelotCardGame.Infrastructure.InputOutput
 {
     public class Writer : IWriter
     {

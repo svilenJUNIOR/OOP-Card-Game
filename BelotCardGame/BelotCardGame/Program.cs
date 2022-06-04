@@ -1,10 +1,10 @@
-﻿using BelotCardGame.Constants;
-using BelotCardGame.Contracts;
-using BelotCardGame.InputOutput;
-using BelotCardGame.InputOutput.Contracts;
-using BelotCardGame.Models;
-using BelotCardGame.Services.Contracts;
-using BelotCardGame.Services.Services;
+﻿using BelotCardGame.Engine;
+using BelotCardGame.Infrastructure.Constants;
+using BelotCardGame.Infrastructure.Contracts;
+using BelotCardGame.Infrastructure.InputOutput;
+using BelotCardGame.Infrastructure.InputOutput.Contracts;
+using BelotCardGame.Infrastructure.Models;
+using BelotCardGame.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 IServiceProvider serviceProvider = new ServiceCollection()

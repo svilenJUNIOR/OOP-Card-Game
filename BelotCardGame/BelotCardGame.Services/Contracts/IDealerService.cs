@@ -1,5 +1,6 @@
-﻿
-namespace BelotCardGame.Services.Contracts
+﻿using BelotCardGame.Infrastructure.Models;
+
+namespace BelotCardGame.Infrastructure.Contracts
 {
     public interface IDealerService
     {
