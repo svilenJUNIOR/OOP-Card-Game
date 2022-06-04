@@ -9,7 +9,7 @@ namespace BelotCardGame.Models
         private readonly IPlayer player;
         private readonly IDealerService dealerService;
         private readonly Values values;
-        public Dealer(IComputer computer, IPlayer player,IDealerService dealerService,
+        public Dealer(IComputer computer, IPlayer player, IDealerService dealerService,
             Values values)
         {
             this.computer = computer;
@@ -17,7 +17,7 @@ namespace BelotCardGame.Models
             this.dealerService = dealerService;
             this.values = values;
         }
-        
+
         public void DrawCards(int startIndex, int endIndex)
         {
             Console.WriteLine("Dealer is drawing cards!");
@@ -87,8 +87,8 @@ namespace BelotCardGame.Models
                 playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
                 computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
 
-                int playerBonus = scoreBoard.CalculateBonus(playersHand, null);
-                int computerBonus = scoreBoard.CalculateBonus(computersHand, null);
+                int playerBonus = this.dealerService.GetBonus(playersHand, null);
+                int computerBonus = this.dealerService.GetBonus(computersHand, null);
 
                 playerScore += playerBonus;
                 computerScore += computerBonus;
@@ -98,32 +98,18 @@ namespace BelotCardGame.Models
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
             {
-                string color = string.Empty;
+                string color = this.dealerService.GetColor(gameType);
 
-                if (gameType == "clubs" || gameType == "spades")
-                    color = "black";
-
-                else if (gameType == "diamonds" || gameType == "hearts")
-                    color = "red";
-
-                this.scoreBoard.FillColor();
-                ScoreBoard = this.scoreBoard.ColorScore;
-
-                for (int i = 0; i < playersHand.Count(); i++)
-                    if (playersHand[i].CardType == "9" || playersHand[i].CardType == "J")
-                        playersHand[i].CardType += "C";
-
-                for (int i = 0; i < computersHand.Count(); i++)
-                    if (computersHand[i].CardType == "9" || computersHand[i].CardType == "J")
-                        computersHand[i].CardType += "C";
+                playersHand = this.dealerService.CheckCards(playersHand);
+                computersHand = this.dealerService.CheckCards(computersHand);
 
                 ScoreBoard = this.dealerService.FillScoreBoard(ScoreBoard, "Color");
 
                 playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
                 computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
 
-                int playerBonus = scoreBoard.CalculateBonus(playersHand, color);
-                int computerBonus = scoreBoard.CalculateBonus(computersHand, color);
+                int playerBonus = this.dealerService.GetBonus(playersHand, color);
+                int computerBonus = this.dealerService.GetBonus(computersHand, color);
 
                 playerScore += playerBonus;
                 computerScore += computerBonus;

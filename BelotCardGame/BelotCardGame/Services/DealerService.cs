@@ -85,5 +85,29 @@ namespace BelotCardGame.Services
             this.scoreBoard.FillNoTrump();
             return boardToFill = this.scoreBoard.NoTrumpsScore;
         }
+
+        public List<Card> CheckCards(List<Card> Hand)
+        {
+            for (int i = 0; i < Hand.Count(); i++)
+                if (Hand[i].CardType == "9" || Hand[i].CardType == "J")
+                    Hand[i].CardType += "C";
+
+            return Hand;
+        }
+        public string GetColor(string gameType)
+        {
+            string color = string.Empty;
+
+            if (gameType == "clubs" || gameType == "spades")
+                color = "black";
+
+            else if (gameType == "diamonds" || gameType == "hearts")
+                color = "red";
+
+            return color;
+        }
+
+        public int GetBonus(List<Card> Hand, string? color) 
+            => this.scoreBoard.CalculateBonus(Hand, color);
     }
 }
