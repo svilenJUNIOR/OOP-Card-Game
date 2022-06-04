@@ -10,11 +10,13 @@ namespace BelotCardGame.Models
         private readonly IComputer computer;
         private readonly IPlayer player;
         private readonly IScoreBoard scoreBoard;
-        public Dealer(IComputer computer, IPlayer player, IScoreBoard scoreBoard)
+        private readonly IDealerService dealerService;
+        public Dealer(IComputer computer, IPlayer player, IScoreBoard scoreBoard, IDealerService dealerService)
         {
             this.computer = computer;
             this.player = player;
             this.scoreBoard = scoreBoard;
+            this.dealerService = dealerService;
         }
 
         public void DrawCards(int startIndex, int endIndex)
@@ -39,7 +41,6 @@ namespace BelotCardGame.Models
                 else if (i >= (endIndex / 2) + 1 && i <= endIndex) player.FillHand(new Card(card, cardSuit, cardColor));
             }
         }
-
         public string ChooseGameType(string computerGameType, string playerGameType, string[] gameTypes)
         {
             if (computerGameType == "give up" && playerGameType == "give up")
@@ -75,10 +76,10 @@ namespace BelotCardGame.Models
                 this.scoreBoard.FillNoTrump();
                 ScoreBoard = this.scoreBoard.NoTrumpsScore;
 
-                playerScore = this.CollectScore(playersHand, ScoreBoard);
-                computerScore = this.CollectScore(computersHand, ScoreBoard);
+                playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
 
-                this.PrintWinner(playerScore, computerScore);
+                this.dealerService.PrintWinner(playerScore, computerScore);
             }
 
             else if (gameType == "all trumps")
@@ -86,8 +87,8 @@ namespace BelotCardGame.Models
                 this.scoreBoard.FillAllTrump();
                 ScoreBoard = this.scoreBoard.AllTrumpsScore;
 
-                playerScore = this.CollectScore(playersHand, ScoreBoard);
-                computerScore = this.CollectScore(computersHand, ScoreBoard);
+                playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
 
                 int playerBonus = scoreBoard.CalculateBonus(playersHand, null);
                 int computerBonus = scoreBoard.CalculateBonus(computersHand, null);
@@ -95,7 +96,7 @@ namespace BelotCardGame.Models
                 playerScore += playerBonus;
                 computerScore += computerBonus;
 
-                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
+                this.dealerService.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
             }
 
             else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
@@ -119,8 +120,8 @@ namespace BelotCardGame.Models
                     if (computersHand[i].CardType == "9" || computersHand[i].CardType == "J")
                         computersHand[i].CardType += "C";
 
-                playerScore = this.CollectScore(playersHand, ScoreBoard);
-                computerScore = this.CollectScore(computersHand, ScoreBoard);
+                playerScore = this.dealerService.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.dealerService.CollectScore(computersHand, ScoreBoard);
 
                 int playerBonus = scoreBoard.CalculateBonus(playersHand, color);
                 int computerBonus = scoreBoard.CalculateBonus(computersHand, color);
@@ -128,61 +129,7 @@ namespace BelotCardGame.Models
                 playerScore += playerBonus;
                 computerScore += computerBonus;
 
-                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
-            }
-        }
-
-        private int CollectScore(List<Card> hand, Dictionary<string, int> ScoreBoard)
-        {
-            int points = 0;
-
-            foreach (var score in ScoreBoard)
-                for (int i = 0; i < hand.Count(); i++)
-                    if (hand[i].CardType == score.Key)
-                        points += score.Value;
-
-            return points;
-        }
-        private void PrintWinner(int playerScore, int computerScore)
-        {
-            if (playerScore > computerScore)
-            {
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-                Console.WriteLine("YOU WIN!!!");
-                return;
-            }
-            else
-            {
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-                Console.WriteLine("YOU LOOSE!!!");
-                return;
-            }
-        }
-        private void PrintWinner(int playerScore, int computerScore, int playerBonus, int computerBonus)
-        {
-            if (playerScore > computerScore)
-            {
-                Console.WriteLine($"Your bonus: {playerBonus}");
-                Console.WriteLine($"Computer bonus: {computerBonus}");
-
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-
-                Console.WriteLine("YOU WIN!!!");
-                return;
-            }
-            else
-            {
-                Console.WriteLine($"Your bonus: {playerBonus}");
-                Console.WriteLine($"Computer bonus: {computerBonus}");
-
-                Console.WriteLine($"Your score: {playerScore}");
-                Console.WriteLine($"Computer score: {computerScore}");
-
-                Console.WriteLine("YOU LOOSE!!!");
-                return;
+                this.dealerService.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
             }
         }
     }
