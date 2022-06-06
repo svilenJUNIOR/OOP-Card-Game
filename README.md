@@ -19,9 +19,9 @@ First of all I recommend changing your console color, for the best visual experi
 
 
 
-Personally I am aware of three different variantions of the rules, so if you play by a different rules, please understand.
+Personally I am aware of three different variations of the rules, so if you play by a different rules, please understand.
 The code of the game is basic implementation of the most importand rules and bonuses, there is much more to be implemented, so the game can be fully realistic.
-Many on the bonuses are not here, but the most common are here
+Many on the bonuses are not here, but the most common are here:
 
 
 1. 10 J Q (K) (K A)
@@ -30,3 +30,15 @@ Many on the bonuses are not here, but the most common are here
 
 
 I suggest to read the rules first, if you don't know them. - https://belot.bg/belot/rules/
+
+
+The basics are:
+
+1. Each player draws 5 cards.
+2. Each player chooses type of game.
+3. The biggest type of game wins, and the game is played by the current type's rules.
+4. Each player draws 3 more cards.
+5. Each player says of they have some kind of a bonus.
+6. The game starts.
+
+In my implementaion all of those things happen automatically, except the game type's choosing, which is the only user input needed.
