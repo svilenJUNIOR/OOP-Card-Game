@@ -14,3 +14,15 @@ First of all I recommend changing your console color, for the best visual experi
 
 
 ![Second step](https://user-images.githubusercontent.com/77575817/172134079-6de6a4af-3f3b-469e-9a2b-5964bb99e778.png)
+
+
+
+
+
+Personally I am aware of three different variantions of the rules, so if you play by a different rules, please understand.
+The code of the game is basic implementation of the most importand rules and bonuses, there is much more to be implemented, so the game can be fully realistic.
+Many on the bonuses are not here, but the most common are here
+1. 10 J Q (K) (K A)
+2. (10) J Q K (A)
+3. (9 10) (10) Q K A
+I suggest to read the rules first, if you don't know them. - https://belot.bg/belot/rules/
