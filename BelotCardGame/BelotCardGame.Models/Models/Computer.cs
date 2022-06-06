@@ -1,8 +1,6 @@
-﻿using BelotCardGame.Models.Contracts;
-
-namespace BelotCardGame.Models.Models
+﻿namespace BelotCardGame.Models.Models
 {
-    public class Computer : Temp
+    public class Computer : Pack
     {
     }
 }

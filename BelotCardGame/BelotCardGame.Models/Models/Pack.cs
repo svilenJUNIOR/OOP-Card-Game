@@ -2,7 +2,7 @@
 
 namespace BelotCardGame.Models.Models
 {
-    public class Temp : ITemp
+    public class Pack : IPack
     {
         private readonly List<Card> Hand  = new List<Card>();
         public void FillHand(Card card) => this.Hand.Add(card);

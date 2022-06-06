@@ -2,7 +2,7 @@
 
 namespace BelotCardGame.Models.Contracts
 {
-    public interface IComputer
+    public interface IPack
     {
         public void FillHand(Card card);
         public List<Card> ReturnHand();
