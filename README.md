@@ -51,8 +51,8 @@ The first part of the game:
 2. You choose a game type.
 
 
+![FIrst Draw](https://user-images.githubusercontent.com/77575817/172138595-d281291b-c1dc-499e-a409-4ba80e1d83ee.png)
 
-![First step](https://user-images.githubusercontent.com/77575817/172137832-6530a963-5f36-4f1c-a007-39acfe0e2589.png)
 
 
 The second part of the game:
