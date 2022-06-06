@@ -8,14 +8,16 @@ namespace BelotCardGame.Infrastructure.Services
     {
         private readonly IWriter writer;
         private readonly IReader reader;
-
-        public PlayerService(IWriter writer, IReader reader)
+        private readonly IPlayer player;
+        public PlayerService(IWriter writer, IReader reader, IPlayer player)
         {
             this.writer = writer;
             this.reader = reader;
+            this.player = player;
         }
-        public void ShowHand(List<Card> Hand)
+        public void ShowHand()
         {
+            var Hand = this.player.ReturnHand();
             writer.WriteLine("Your hand:");
 
             foreach (var card in Hand)
@@ -34,6 +36,8 @@ namespace BelotCardGame.Infrastructure.Services
             }
             Console.ResetColor();
         }
+        public List<Card> ReturnHand()
+            => this.player.ReturnHand();
         public string ChooseGameType(string[] gameTypes)
         {
             writer.WriteLine("\nChoose game type:");

@@ -1,4 +1,4 @@
-﻿namespace BelotCardGame.Engine
+﻿namespace BelotCardGame.Infrastructure.Constants
 {
     public interface IEngine
     {

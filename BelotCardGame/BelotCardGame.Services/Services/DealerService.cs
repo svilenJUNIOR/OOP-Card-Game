@@ -12,7 +12,8 @@ namespace BelotCardGame.Infrastructure.Services
         private readonly IPlayer player;
         private readonly IWriter writer;
         private readonly Values values;
-        public DealerService(IScoreBoard scoreBoard, IComputer computer, IPlayer player, IWriter writer, Values values)
+        public DealerService(IScoreBoard scoreBoard, IComputer computer, IPlayer player
+            , IWriter writer, Values values)
         {
             this.scoreBoard = scoreBoard;
             this.computer = computer;
@@ -123,7 +124,7 @@ namespace BelotCardGame.Infrastructure.Services
         public int GetBonus(List<Card> Hand, string? color)
             => scoreBoard.CalculateBonus(Hand, color);
 
-        public void FillHands(int startIndex, int endIndex)
+        public void DrawCards(int startIndex, int endIndex)
         {
             Random random = new Random();
 
@@ -164,6 +165,61 @@ namespace BelotCardGame.Infrastructure.Services
 
             writer.WriteLine($"Game types is: {computerGameType}");
             return computerGameType;
+        }
+
+        public void Play(string gameType, List<Card> playersHand, List<Card> computersHand)
+        {
+            Dictionary<string, int> ScoreBoard = null;
+
+            int playerScore = 0;
+            int computerScore = 0;
+
+            if (gameType == "no trumps")
+            {
+                ScoreBoard = this.FillScoreBoard(ScoreBoard, "NoTrumps");
+
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
+
+                this.PrintWinner(playerScore, computerScore);
+            }
+
+            else if (gameType == "all trumps")
+            {
+                ScoreBoard = this.FillScoreBoard(ScoreBoard, "AllTrumps");
+
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
+
+                int playerBonus = this.GetBonus(playersHand, null);
+                int computerBonus = this.GetBonus(computersHand, null);
+
+                playerScore += playerBonus;
+                computerScore += computerBonus;
+
+                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
+            }
+
+            else if (gameType == "clubs" || gameType == "diamonds" || gameType == "hearts" || gameType == "spades")
+            {
+                string color = this.GetColor(gameType);
+
+                playersHand = this.CheckCards(playersHand);
+                computersHand = this.CheckCards(computersHand);
+
+                ScoreBoard = this.FillScoreBoard(ScoreBoard, "Color");
+
+                playerScore = this.CollectScore(playersHand, ScoreBoard);
+                computerScore = this.CollectScore(computersHand, ScoreBoard);
+
+                int playerBonus = this.GetBonus(playersHand, color);
+                int computerBonus = this.GetBonus(computersHand, color);
+
+                playerScore += playerBonus;
+                computerScore += computerBonus;
+
+                this.PrintWinner(playerScore, computerScore, playerBonus, computerBonus);
+            }
         }
     }
 }

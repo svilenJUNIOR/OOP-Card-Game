@@ -1,5 +1,4 @@
-﻿using BelotCardGame.Engine;
-using BelotCardGame.Infrastructure.Constants;
+﻿using BelotCardGame.Infrastructure.Constants;
 using BelotCardGame.Infrastructure.Contracts;
 using BelotCardGame.Infrastructure.InputOutput;
 using BelotCardGame.Infrastructure.InputOutput.Contracts;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 IServiceProvider serviceProvider = new ServiceCollection()
     .AddScoped<IPlayer, Player>()
     .AddScoped<IComputer, Computer>()
-    .AddScoped<IDealer, Dealer>()
     .AddScoped<IEngine, Engine>()
     .AddScoped<IScoreBoard, ScoreBoard>()
     .AddScoped<IDealerService, DealerService>()

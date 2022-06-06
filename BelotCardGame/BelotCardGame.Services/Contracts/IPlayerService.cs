@@ -4,7 +4,8 @@ namespace BelotCardGame.Infrastructure.Contracts
 {
     public interface IPlayerService
     {
-        public void ShowHand(List<Card> Hand);
+        public void ShowHand();
+        public List<Card> ReturnHand();
         public string ChooseGameType(string[] gameTypes);
     }
 }

@@ -1,13 +1,18 @@
 ﻿using BelotCardGame.Infrastructure.Contracts;
 using BelotCardGame.Infrastructure.InputOutput.Contracts;
+using BelotCardGame.Infrastructure.Models;
 
 namespace BelotCardGame.Infrastructure.Services
 {
     public class ComputerService : IComputerService
     {
         private readonly IWriter writer;
-        public ComputerService(IWriter writer)
-        => this.writer = writer;
+        private readonly IComputer computer;
+        public ComputerService(IWriter writer, IComputer computer)
+        {
+            this.writer = writer;
+            this.computer = computer;
+        }
 
         public string ChooseTypeOfGame(string playerGametype, List<string> gameTypes)
         {
@@ -26,5 +31,7 @@ namespace BelotCardGame.Infrastructure.Services
 
             return game;
         }
+        public List<Card> ShowHand()
+            => this.computer.ReturnHand();
     }
 }

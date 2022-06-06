@@ -11,7 +11,8 @@ namespace BelotCardGame.Infrastructure.Contracts
         public List<Card> CheckCards(List<Card> Hand);
         public string GetColor(string gameType);
         public int GetBonus(List<Card> Hand, string? color);
-        public void FillHands(int startIndex, int endIndex);
+        public void DrawCards(int startIndex, int endIndex);
         public string CompareGameTypes(string computerGameType, string playerGameType, string[] gameTypes);
+        public void Play(string gameType, List<Card> playersHand, List<Card> computersHand);
     }
 }
