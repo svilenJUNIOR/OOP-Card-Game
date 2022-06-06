@@ -9,8 +9,8 @@ namespace BelotCardGame.Services.Services
     {
         private readonly IWriter writer;
         private readonly IReader reader;
-        private readonly IPlayer player;
-        public PlayerService(IWriter writer, IReader reader, IPlayer player)
+        private readonly Player player;
+        public PlayerService(IWriter writer, IReader reader, Player player)
         {
             this.writer = writer;
             this.reader = reader;

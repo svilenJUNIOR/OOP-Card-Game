@@ -8,8 +8,8 @@ using BelotCardGame.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 IServiceProvider serviceProvider = new ServiceCollection()
-    .AddScoped<IPlayer, Player>()
-    .AddScoped<IComputer, Computer>()
+    .AddScoped<Player, Player>()
+    .AddScoped<Computer, Computer>()
     .AddScoped<IEngine, Engine>()
     .AddScoped<IScoreBoard, ScoreBoard>()
     .AddScoped<IGameService, GameService>()

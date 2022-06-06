@@ -8,8 +8,8 @@ namespace BelotCardGame.Services.Services
     public class ComputerService : IComputerService
     {
         private readonly IWriter writer;
-        private readonly IComputer computer;
-        public ComputerService(IWriter writer, IComputer computer)
+        private readonly Computer computer;
+        public ComputerService(IWriter writer, Computer computer)
         {
             this.writer = writer;
             this.computer = computer;

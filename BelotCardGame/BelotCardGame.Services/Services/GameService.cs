@@ -9,11 +9,11 @@ namespace BelotCardGame.Services.Services
     public class GameService : IGameService
     {
         private readonly IScoreBoard scoreBoard;
-        private readonly IComputer computer;
-        private readonly IPlayer player;
+        private readonly Computer computer;
+        private readonly Player player;
         private readonly IWriter writer;
         private readonly Values values;
-        public GameService(IScoreBoard scoreBoard, IComputer computer, IPlayer player
+        public GameService(IScoreBoard scoreBoard, Computer computer, Player player
             , IWriter writer, Values values)
         {
             this.scoreBoard = scoreBoard;
